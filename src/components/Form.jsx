@@ -3,15 +3,8 @@ import axios from "axios";
 import Card from "./Card";
 
 function Form() {
- 
-  const BackendURL = "http://localhost:5000/posts";
   const [data, setData] = useState([]);
-  const [creator, setCreator] = useState("");
-  const [title, setTitle] = useState("");
-  const [msg, setMsg] = useState("");
   const getAllPosts = () => {
-   
-
     axios
       .get("http://localhost:5000/posts")
       .then((data) => {
@@ -21,65 +14,55 @@ function Form() {
         console.log("Error is", err);
       });
   };
-  function SendPost(e) {
-    e.preventDefault();
-    const dataToBeSent = {
-      creator,
-      title,
-      msg,
-    };
-    console.log(dataToBeSent);
-
-    axios
-      .post(BackendURL, dataToBeSent)
-      .then((data) => {
-        console.log(data);
-        console.log("post done");
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }
   function mapDeletedData(id) {
     const newData = data.filter((post) => {
       return post._id !== id;
     });
     setData(newData);
   }
+  const [creator, setCreator] = useState("");
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
+
+  function postPost() {
+    axios.post("http://localhost:5000/posts", {
+      creator: creator,
+      title: title,
+      message: message,
+    });
+    setCreator("");
+    setTitle("");
+    setMessage("");
+    getAllPosts();
+  }
   return (
     <div class="container ml-3">
-      <form id="postForm">
+      <form action="http://localhost:5000/posts/" method="post">
         <input
           type="text"
           name="creator"
-          required={true}
-          onChange={(e) => setCreator(e.target.value)}
           placeholder="Your Name"
+          value={creator}
+          onChange={(e) => setCreator(e.target.value)}
         />
         <input
           type="text"
           name="title"
-          required={true}
-          onChange={(e) => setTitle(e.target.value)}
           placeholder="Enter your title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
         <input
           type="text"
           name="message"
-          required={true}
-          onChange={(e) => setMsg(e.target.value)}
           placeholder="Type your post here"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
         />
       </form>
-      <button
-        type="submit"
-        class="btn btn-success"
-        name="PostButton"
-        onClick={(e) => SendPost(e)}
-      >
+      <button class="btn btn-success" name="PostButton" onClick={postPost}>
         Post
       </button>
-
       <button
         class="btn btn-success"
         name="getPostButton"
@@ -87,7 +70,8 @@ function Form() {
       >
         Get All Posts
       </button>
-      {data.map((one) => {
+
+      {data.reverse.map((one) => {
         return (
           <Card
             id={one._id}
