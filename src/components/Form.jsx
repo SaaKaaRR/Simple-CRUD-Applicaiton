@@ -71,7 +71,7 @@ function Form() {
         Get All Posts
       </button>
 
-      {data.reverse.map((one) => {
+      {data.map((one) => {
         return (
           <Card
             id={one._id}
