@@ -7,7 +7,7 @@ import Container from "react-bootstrap/esm/Container";
 function PostRow(props) {
   return (
     <Container>
-      {console.log(props.data)}
+      {console.log(props)}
 
       <div>
         <h1>{props.rowTitle}</h1>
@@ -16,9 +16,10 @@ function PostRow(props) {
             return (
               <Col lg={3}>
                 <Post
-                  key={singlePost._id}
+                  id={singlePost._id}
                   cardTitle={singlePost.title}
                   cardDescription={singlePost.message}
+                  mapDeletedData={props.mapDeletedData}
                 ></Post>
               </Col>
             );

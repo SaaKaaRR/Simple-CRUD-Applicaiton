@@ -73,14 +73,13 @@ function Form() {
       >
         Get All Posts
       </button>
-      <PostRow data={data} rowTitle="New Post"></PostRow>
+      <PostRow
+        data={data}
+        rowTitle="New Post"
+        mapDeletedData={mapDeletedData}
+      ></PostRow>
     </div>
   );
 }
 
 export default Form;
-
-// id={one._id}
-// cardTitle={one.title}
-// cardDescription={one.message}
-// mapDeletedData={mapDeletedData}

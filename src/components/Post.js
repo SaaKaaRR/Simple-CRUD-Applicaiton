@@ -1,45 +1,17 @@
-// import axios from "axios";
-// import React from "react";
-
-// export default function Card({ id, title, message, mapDeletedData }) {
-//   return (
-//     <div class="card">
-//       <div class="card-body">
-//         <h5 class="card-title">{title}</h5>
-//         <p class="card-text">{message}</p>
-//         <button
-//           class="btn btn-primary"
-//           onClick={() => {
-//             axios
-//               .delete(`http://localhost:5000/posts?id=${id}`)
-//               .then((data) => {
-//                 mapDeletedData(id);
-
-//               })
-//               .catch((error) => {
-//                 alert("Something went wrong");
-//               });
-//           }}
-//         >
-//           Delete
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
 import React from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import axios from "axios";
 import "./Post.css";
 
 function Post(props) {
   return (
     <>
       <Container fluid>
+        {console.log(props.mapDeletedData)}
         <Row lg={4}>
           <Col>
             <Card
@@ -61,7 +33,20 @@ function Post(props) {
                 <Card.Text className="text-white">
                   {props.cardDescription}
                 </Card.Text>
-                <Button variant="primary">View</Button>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    axios
+                      .delete(`http://localhost:5000/posts?id=${props.id}`)
+                      .then((data) => {})
+                      .catch((error) => {
+                        alert("Something went wrong");
+                      });
+                    props.mapDeletedData(props.id);
+                  }}
+                >
+                  Delete
+                </Button>
               </Card.Body>
             </Card>
           </Col>
