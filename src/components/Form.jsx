@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Card from "./Card";
+import Post from "./Post";
+import PostRow from "./PostRow";
 
 function Form() {
   const [data, setData] = useState([]);
@@ -14,6 +15,7 @@ function Form() {
         console.log("Error is", err);
       });
   };
+
   function mapDeletedData(id) {
     const newData = data.filter((post) => {
       return post._id !== id;
@@ -35,6 +37,7 @@ function Form() {
     setMessage("");
     getAllPosts();
   }
+  console.log(data);
   return (
     <div class="container ml-3">
       <form action="http://localhost:5000/posts/" method="post">
@@ -70,19 +73,14 @@ function Form() {
       >
         Get All Posts
       </button>
-
-      {data.map((one) => {
-        return (
-          <Card
-            id={one._id}
-            title={one.title}
-            message={one.message}
-            mapDeletedData={mapDeletedData}
-          />
-        );
-      })}
+      <PostRow data={data} rowTitle="New Post"></PostRow>
     </div>
   );
 }
 
 export default Form;
+
+// id={one._id}
+// cardTitle={one.title}
+// cardDescription={one.message}
+// mapDeletedData={mapDeletedData}

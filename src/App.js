@@ -1,18 +1,18 @@
 import Header from "./components/Header";
 import Form from "./components/Form";
-import Navbar from "./components/Navbar";
 import Register from "./components/Register";
-
+import Banner from "./components/imported/Banner";
+import Appbar from "./components/imported/Appbar";
 
 function App() {
-  return (<div>
+  return (
+    <div>
+      <Appbar></Appbar>
+      <Header />
+      <Banner></Banner>
 
-  <Header />
-  <Navbar />
-  <Form />
-  
-
-  </div>
+      <Form />
+    </div>
   );
 }
 

@@ -1,0 +1,10 @@
+.postImage {
+  transition: 450ms;
+  align-content: center;
+}
+.postImage:hover {
+  transform: scale(1.1);
+}
+.overflow {
+  overflow: hidden !important;
+}
